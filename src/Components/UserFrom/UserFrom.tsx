@@ -15,7 +15,6 @@ const UserFrom: React.FC<UserFormPropType> = ({ addNewUser }) => {
     e.preventDefault();
     if (user.email && user.name) {
       addNewUser(user);
-      console.log(user);
       setUser({ name: "", email: "" });
     }
   };
