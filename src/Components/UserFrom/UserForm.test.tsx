@@ -3,12 +3,17 @@ import user from "@testing-library/user-event";
 import "@testing-library/jest-dom";
 import UserFrom from "./UserFrom";
 
-it("shows two input and a button", () => {
+const renderComponent = () => {
   //mock the addNewUser function
   const addNewUser = jest.fn();
 
   //render Component
   render(<UserFrom addNewUser={addNewUser} />);
+  return { addNewUser };
+};
+
+it("shows two input and a button", () => {
+  renderComponent();
 
   //manipulate component or find elements
   const nameInput = screen.getByRole("textbox", { name: /name/i });
@@ -24,10 +29,7 @@ it("shows two input and a button", () => {
 });
 
 it("call addNewUser function after form Submission", () => {
-  //mock function
-  const addNewUser = jest.fn();
-  //render Component
-  render(<UserFrom addNewUser={addNewUser} />);
+  const { addNewUser } = renderComponent();
 
   //Manipulate Component or Find elements
   const nameInput = screen.getByRole("textbox", { name: /name/i });
@@ -53,10 +55,7 @@ it("call addNewUser function after form Submission", () => {
 });
 
 test("should be empty input fields after form submission", () => {
-  //mock function
-  const addNewUser = jest.fn();
-  //render component
-  render(<UserFrom addNewUser={addNewUser} />);
+  renderComponent();
 
   //manipulate component or find elements
   const nameInput = screen.getByRole("textbox", {

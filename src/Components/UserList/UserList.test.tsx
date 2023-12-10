@@ -2,7 +2,7 @@ import { render, screen, within } from "@testing-library/react";
 import UserList from "./UserList";
 import "@testing-library/jest-dom";
 
-test("render one user per row", () => {
+const renderComponent = () => {
   //fake users
   const users = [
     {
@@ -16,6 +16,11 @@ test("render one user per row", () => {
   ];
   //render component
   render(<UserList users={users} />);
+  return { users };
+};
+
+test("render one user per row", () => {
+  renderComponent();
 
   // Manipulate component or find elements
   //   screen.logTestingPlaygroundURL();
@@ -32,20 +37,7 @@ test("render one user per row", () => {
 });
 
 it("should show name and email for each user", () => {
-  //fake users
-  const users = [
-    {
-      name: "samir",
-      email: "samir@gmail.com",
-    },
-    {
-      name: "rifat",
-      email: "rifat@gmail.com",
-    },
-  ];
-
-  //render component
-  render(<UserList users={users} />);
+  const { users } = renderComponent();
 
   for (let user of users) {
     const name = screen.getByRole("cell", { name: user.name });
