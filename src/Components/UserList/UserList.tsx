@@ -6,6 +6,10 @@ type UserListPropsType = {
 };
 
 const UserList: React.FC<UserListPropsType> = ({ users }) => {
+  if (users.length === 0) {
+    return null;
+  }
+
   return (
     <table className="mt-10 w-11/12 divide-y-2 divide-solid divide-slate-300 border-2 border-slate-400 lg:mt-24 lg:w-7/12">
       <thead>

@@ -15,9 +15,18 @@ const renderComponent = () => {
     },
   ];
   //render component
-  render(<UserList users={users} />);
-  return { users };
+  const { container } = render(<UserList users={users} />);
+  return { container, users };
 };
+
+test("should return null if user length is zero", () => {
+  //fake users
+  const users: any = [];
+  //render component
+  const { container } = render(<UserList users={users} />);
+  //eslint-disable-next-line
+  expect(container.firstChild).toBeNull();
+});
 
 test("render one user per row", () => {
   renderComponent();
