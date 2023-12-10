@@ -1,0 +1,58 @@
+import { render, screen, within } from "@testing-library/react";
+import UserList from "./UserList";
+import "@testing-library/jest-dom";
+
+test("render one user per row", () => {
+  //fake users
+  const users = [
+    {
+      name: "samir",
+      email: "samir@gmail.com",
+    },
+    {
+      name: "rifat",
+      email: "rifat@gmail.com",
+    },
+  ];
+  //render component
+  render(<UserList users={users} />);
+
+  // Manipulate component or find elements
+  //   screen.logTestingPlaygroundURL();
+  //   const rows = screen.getByRole("row", {
+  //     name: /samir samir@gmail\.com/i,
+  //   });
+
+  //another way
+  const rows = within(screen.getByTestId("users")).getAllByRole("row");
+
+  //assertion: to make sure one user per row
+  //   expect(rows).toBeInTheDocument();
+  expect(rows).toHaveLength(2);
+});
+
+it("should show name and email for each user", () => {
+  //fake users
+  const users = [
+    {
+      name: "samir",
+      email: "samir@gmail.com",
+    },
+    {
+      name: "rifat",
+      email: "rifat@gmail.com",
+    },
+  ];
+
+  //render component
+  render(<UserList users={users} />);
+
+  for (let user of users) {
+    const name = screen.getByRole("cell", { name: user.name });
+    const email = screen.getByRole("cell", { name: user.email });
+
+    //assertion
+    expect(name).toBeInTheDocument();
+    expect(email).toBeInTheDocument();
+  }
+});

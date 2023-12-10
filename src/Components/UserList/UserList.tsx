@@ -14,7 +14,10 @@ const UserList: React.FC<UserListPropsType> = ({ users }) => {
           <th className="p-1">Email</th>
         </tr>
       </thead>
-      <tbody className="divide-y divide-solid divide-slate-100">
+      <tbody
+        data-testid="users"
+        className="divide-y divide-solid divide-slate-100"
+      >
         {users?.map((user: User, i: number) => (
           <tr
             className="text-center font-sans leading-normal text-sky-600"
