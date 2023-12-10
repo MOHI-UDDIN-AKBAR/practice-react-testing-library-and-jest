@@ -1,22 +1,18 @@
 import { useState } from "react";
-import { Form, ListOfUsers } from "./Components";
+import UserFrom from "./Components/UserFrom/UserFrom";
+import UserList from "./Components/UserList/UserList";
 import { User } from "./types";
+import "./index.css";
 
 const App = () => {
   const [users, setUsers] = useState<User[]>([]);
 
-  const addNewUser = (singleUser: User) =>
-    setUsers((user) => [...user, singleUser]);
+  const addNewUser = (newUser: User) => setUsers((user) => [...user, newUser]);
 
   return (
-    <main className="max-container flex flex-col items-center justify-start p-2">
-      <Form addNewUser={addNewUser} />
-      <div className="mt-10 flex w-full flex-col items-center justify-center">
-        <h1 className="w-fit  p-2 font-extrabold capitalize text-slate-900">
-          all Users
-        </h1>
-        <ListOfUsers users={users} />
-      </div>
+    <main className="max-container flex flex-col items-center justify-center">
+      <UserFrom addNewUser={addNewUser} />
+      <UserList users={users} />
     </main>
   );
 };

@@ -1,20 +1,22 @@
-import React, { useState } from "react";
+import React from "react";
 import { User } from "../../types";
 
-export type FromPropsType = {
-  addNewUser: (singleUser: User) => void;
+type UserFormPropType = {
+  addNewUser: (user: User) => void;
 };
 
-const Form = ({ addNewUser }: FromPropsType) => {
-  const [singleUser, setSingleUser] = useState<User>({
+const UserFrom: React.FC<UserFormPropType> = ({ addNewUser }) => {
+  const [user, setUser] = React.useState<User>({
     name: "",
     email: "",
   });
+
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (singleUser && singleUser.name && singleUser.email) {
-      addNewUser(singleUser);
-      setSingleUser({ email: "", name: "" });
+    if (user.email && user.name) {
+      addNewUser(user);
+      console.log(user);
+      setUser({ name: "", email: "" });
     }
   };
 
@@ -33,12 +35,10 @@ const Form = ({ addNewUser }: FromPropsType) => {
         <input
           type="text"
           id="name"
-          placeholder="type name..."
+          placeholder="type name"
           className="rounded-md border-2 border-blue-300 p-2 text-xs text-slate-900 placeholder:text-xs placeholder:capitalize placeholder:text-slate-400 focus:outline-none"
-          value={singleUser.name}
-          onChange={(e) =>
-            setSingleUser({ ...singleUser, name: e.target.value })
-          }
+          value={user.name}
+          onChange={(e) => setUser({ ...user, name: e.target.value })}
         />
       </div>
       <div className="flex w-full flex-col flex-nowrap px-2 lg:w-80 lg:p-2">
@@ -53,10 +53,8 @@ const Form = ({ addNewUser }: FromPropsType) => {
           id="email"
           placeholder="xyz@email.com"
           className="rounded-md border-2 border-blue-300 p-2 text-xs text-slate-900 placeholder:text-xs placeholder:capitalize placeholder:text-slate-400 focus:outline-none"
-          value={singleUser.email}
-          onChange={(e) =>
-            setSingleUser({ ...singleUser, email: e.target.value })
-          }
+          value={user.email}
+          onChange={(e) => setUser({ ...user, email: e.target.value })}
         />
       </div>
       <button
@@ -69,4 +67,4 @@ const Form = ({ addNewUser }: FromPropsType) => {
   );
 };
 
-export default Form;
+export default UserFrom;
